@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat Entry</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .enter-button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4a90e2;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .enter-button:hover {
+      background-color: #357ab7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="enter-button" onclick="enterChat()">Enter Chat</button>
+
+  <script>
+    function enterChat() {
+      window.location.href = "chat.html"; // Make sure chat.html is in the same directory
+    }
+  </script>
+</body>
+
+</html>
