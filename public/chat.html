@@ -77,42 +77,12 @@
 
         <div class="input-area">
             <input type="text" id="messageInput" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
+            <button id="sendButton">Send</button>
         </div>
     </div>
-
-    <script>
-        function sendMessage() {
-            const input = document.getElementById("messageInput");
-            const chatBox = document.getElementById("chatBox");
-            const messageText = input.value.trim();
-
-            if (messageText !== "") {
-                const messageDiv = document.createElement("div");
-                messageDiv.className = "message";
-                messageDiv.textContent = messageText;
-                chatBox.appendChild(messageDiv);
-
-                // Auto-scroll to bottom
-                chatBox.scrollTop = chatBox.scrollHeight;
-
-                input.value = "";
-                input.focus();
-            }
-        }
-
-        // Allow Enter key to send message
-        document.getElementById("messageInput").addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
-                sendMessage();
-            }
-        });
-    </script>
     
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-    </script>
+    <script src="chat.js" type="module"></script>
 
 </body>
 

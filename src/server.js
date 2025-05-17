@@ -20,4 +20,8 @@ const io = new Server(httpServer);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  socket.on("text_sent", (textMessage) => {
+    io.emit("incoming_text", textMessage);
+  });
 });
