@@ -15,7 +15,55 @@
       font-family: Arial, sans-serif;
     }
 
-    .enter-button {
+    .container {
+      display: flex;
+      flex-direction: column;
+      width: 300px; /* fixed width for both inner divs */
+      gap: 20px;
+    }
+
+    .link-container,
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .link-container a {
+      text-decoration: none;
+      color: #4a90e2;
+      margin: 10px 0;
+      font-size: 18px;
+      text-align: center;
+      width: 100%;
+      
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+
+      display: block;
+      box-sizing: border-box;
+    }
+    .link-container a:hover {
+      background-color: #4a90e2;
+    }
+    
+    .input {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .register-chat-title {
       padding: 12px 24px;
       font-size: 18px;
       border: none;
@@ -24,21 +72,31 @@
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 100%;
     }
 
-    .enter-button:hover {
+    .register-chat-title:hover {
       background-color: #357ab7;
     }
   </style>
 </head>
 
 <body>
-
-  <button class="enter-button" onclick="enterChat()">Enter Chat</button>
+  <div class="container">
+    <div class="link-container">
+      <a href="#">Example One</a>
+      <a href="#">Example Two</a>
+      <a href="#">Example Three</a>
+    </div>
+    <div class="form-container">
+      <input type="text" class="input" id="input-chat-title" placeholder="Enter chat title...">
+      <button class="register-chat-title">Register chat title</button>
+    </div>
+  </div>
 
   <script>
     function enterChat() {
-      window.location.href = "chat.html"; // Make sure chat.html is in the same directory
+      window.location.href = "chat.html";
     }
   </script>
 </body>
