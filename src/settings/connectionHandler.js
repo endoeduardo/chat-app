@@ -1,10 +1,17 @@
-import { connectDB } from "./dbConnect";
+import { chatCollection } from "./dbConnect.js";
 
-const db = connectDB();
-
-async function addNewChat(chatTitle) {
-    const result = await db.createCollection(chatTitle);
-    console.log(result);
+async function fetchAllChatSessions () {
+    const conversations = await chatCollection.find();
+    if (conversations) {
+        const chatTitles = [];
+        for await (const chat of conversations) {
+            chatTitles.push(chat.chatTitle);
+        }
+        
+        return chatTitles;
+    } else {
+        console.log("No chat session found!")
+    };
 };
 
-export { addNewChat };
+export { fetchAllChatSessions };

@@ -2,7 +2,9 @@ import express from "express";
 import url from "url";
 import path from "path";
 import http from "http";
-import {Server} from "socket.io";
+import { Server } from "socket.io";
+
+import { fetchAllChatSessions } from "./settings/connectionHandler.js"
 
 const app = express();
 const currentPath = url.fileURLToPath(import.meta.url);
@@ -19,9 +21,14 @@ httpServer.listen(PORT, () => {
 const io = new Server(httpServer);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+    console.log('a user connected');
 
-  socket.on("text_sent", (textMessage) => {
-    io.emit("incoming_text", textMessage);
-  });
+    socket.on("request_chat_sessions", async (insertChatSessions) => {
+        const chatSessions = await fetchAllChatSessions();
+        insertChatSessions(chatSessions);
+    });
+
+    socket.on("text_sent", (textMessage) => {
+        io.emit("incoming_text", textMessage);
+    });
 });
