@@ -4,7 +4,7 @@ import path from "path";
 import http from "http";
 import { Server } from "socket.io";
 
-import { fetchAllChatSessions } from "./settings/connectionHandler.js"
+import { fetchAllChatSessions, saveMessage, getRoomMessages } from "./settings/connectionHandler.js"
 
 const app = express();
 const currentPath = url.fileURLToPath(import.meta.url);
@@ -28,12 +28,19 @@ io.on('connection', (socket) => {
         insertChatSessions(chatSessions);
     });
 
-    socket.on("join_room", (room) => {
+    socket.on("join_room", async (room) => {
         socket.join(room);
         console.log(`User joined room: ${room}`);
+        
+        // Send existing messages to the user when they join
+        const messages = await getRoomMessages(room);
+        socket.emit("load_messages", messages);
     });
 
-    socket.on("text_sent", (data) => {
+    socket.on("text_sent", async (data) => {
+        // Save the message to MongoDB
+        await saveMessage(data.room, data.message);
+        
         // Emit the message only to the specific room
         io.to(data.room).emit("incoming_text", {
             message: data.message,

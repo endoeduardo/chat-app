@@ -41,7 +41,19 @@ function addTextMessageToChatBox(data) {
     }
 }
 
+function loadExistingMessages(messages) {
+    const chatBox = document.getElementById("chatBox");
+    messages.forEach(message => {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "message";
+        messageDiv.textContent = message;
+        chatBox.appendChild(messageDiv);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 socket.on("incoming_text", addTextMessageToChatBox);
+socket.on("load_messages", loadExistingMessages);
 
 // Set up event listeners after DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
