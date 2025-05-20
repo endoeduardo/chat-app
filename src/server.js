@@ -28,7 +28,20 @@ io.on('connection', (socket) => {
         insertChatSessions(chatSessions);
     });
 
-    socket.on("text_sent", (textMessage) => {
-        io.emit("incoming_text", textMessage);
+    socket.on("join_room", (room) => {
+        socket.join(room);
+        console.log(`User joined room: ${room}`);
+    });
+
+    socket.on("text_sent", (data) => {
+        // Emit the message only to the specific room
+        io.to(data.room).emit("incoming_text", {
+            message: data.message,
+            room: data.room
+        });
+    });
+
+    socket.on("disconnect", () => {
+        console.log('user disconnected');
     });
 });
